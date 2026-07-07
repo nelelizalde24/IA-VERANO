@@ -1,47 +1,86 @@
+# IA
+Es la ciencia e ingenio de hacer máquinas inteligentes, especialmente programas de cómputo inteligentes.
+
+Búsqueda del estado requerido en el conjunto de los estados producidos por las acciones posibles.
+
 # Problema del campesino, el coyote, el pollo y el maíz
 
-
-## Solución paso a paso
-La idea es mover primero al **pollo**, porque es el elemento que no puede quedarse con ninguno de los otros dos.
-
-### Secuencia correcta
-1. El campesino lleva al **pollo** al otro lado.
-2. El campesino regresa **solo**.
-3. El campesino lleva al **coyote** al otro lado.
-4. El campesino regresa con el **pollo**.
-5. El campesino lleva el **maíz** al otro lado.
-6. El campesino regresa **solo**.
-7. El campesino lleva al **pollo** al otro lado.
-
-## Explicación de por qué funciona
-Después de mover al pollo primero, se evita que quede junto al coyote o al maíz sin vigilancia. Luego, cuando el coyote cruza, el pollo regresa para no dejar al coyote con él. Después se transporta el maíz, y al final se lleva otra vez al pollo.
-
-Así, en ningún momento se rompe la regla del problema.
-
-## Grafo de movimientos
-Sí, también se puede representar como un grafo para ver la secuencia de estados.
+## Arbol de movimientos
+```mermaid
+flowchart TD
+	A[A C P M]
+```
 
 ```mermaid
-flowchart LR
-	A[Inicio: coyote, pollo y maíz en la orilla izquierda] --> B[1. Cruza con el pollo]
-	B --> C[2. Regresa solo]
-	C --> D[3. Cruza con el coyote]
-	D --> E[4. Regresa con el pollo]
-	E --> F[5. Cruza con el maíz]
-	F --> G[6. Regresa solo]
-	G --> H[7. Cruza con el pollo]
-	H --> I[Fin: todos en la orilla derecha]
+flowchart TD
+	A1[I I I I] --> B1[D D I I] --> X1[X]
+	A1 --> B2[D I D I] --> C1[I I D I] --> D1[D D  D I]
+	C1 --> D2[D I D D]
+	D1 --> E2[I D I I]
+	D2 --> E1[I I I D]
+	E1 --> F1[D D I D]
+	F1 --> G3[I D I D]
+	G3 --> H1[D D D D]
+	E2 --> F2[D D D I] --> G1[I D D I] --> X3[X]
+	E2 --> F3[D D I D] 
+	F3 --> G2[I D I D]
+	G2 --> H2[D D D D]
+	A1 --> B3[D I I D] --> X2[X]
+	
+	
 ```
 
 ## Tabla de movimientos
-| Paso | Acción | Orilla izquierda | Orilla derecha |
+| Paso |  Orilla izquierda | Acción | Orilla derecha |
 |---|---|---|---|
-| 1 | Lleva al pollo | coyote, maíz | campesino, pollo |
-| 2 | Regresa solo | campesino, coyote, maíz | pollo |
-| 3 | Lleva al coyote | maíz | campesino, coyote, pollo |
-| 4 | Regresa con el pollo | campesino, pollo, maíz | coyote |
-| 5 | Lleva el maíz | pollo | campesino, coyote, maíz |
-| 6 | Regresa solo | campesino, pollo | coyote, maíz |
-| 7 | Lleva al pollo |  | campesino, coyote, pollo, maíz |
+| 1 |  coyote, maíz | Lleva al pollo | campesino, pollo |
+| 2 |  campesino, coyote, maíz | Regresa solo | pollo |
+| 3 |  maíz | Lleva al coyote | campesino, coyote, pollo |
+| 4 | campesino, pollo, maíz | Regresa con el pollo | coyote | 
+| 5 |  pollo | Lleva el maíz | campesino, coyote, maíz |
+| 6 |  campesino, pollo | Regresa solo | coyote, maíz |
+| 7 |   | Lleva al pollo | campesino, coyote, pollo, maíz |
 
 La solución correcta requiere **7 movimientos** y garantiza que todos crucen el río sin problemas.
+
+---
+
+# Problema de los tres caníbales y tres monjes
+
+## Arbol de movimientos
+```mermaid
+flowchart TD
+	A[Inicio] --> B[Cruzan 2 canibales]
+	B --> C[Regresa 1 canibal]
+	C --> D[Cruzan 2 canibales]
+	D --> E[Regresa 1 canibal]
+	E --> F[Cruzan 2 monjes]
+	F --> G[Regresa 1 monje y 1 canibal]
+	G --> H[Cruzan 2 monjes]
+	H --> I[Regresa 1 canibal]
+	I --> J[Cruzan 2 canibales]
+	J --> K[Regresa 1 canibal]
+	K --> L[Cruzan 2 canibales]
+	L --> M[Fin]
+```
+
+## Tabla de movimientos
+| Paso | Orilla izquierda | Acción | Orilla derecha |
+|---|---|---|---|
+| 1 |  3 monjes, 1 caníbal | Cruzan 2 caníbales | 2 caníbales |
+| 2 |  3 monjes, 2 caníbales | Regresa 1 caníbal | 1 caníbal |
+| 3 |  3 monjes | Cruzan 2 caníbales | 3 caníbales |
+| 4 |  3 monjes, 1 caníbal | Regresa 1 caníbal | 2 caníbales |
+| 5 |  1 monje, 1 caníbal | Cruzan 2 monjes | 2 monjes, 2 caníbales |
+| 6 |  2 monjes, 2 caníbales | Regresa 1 monje y 1 caníbal | 1 monje, 1 caníbal |
+| 7 |  2 caníbales | Cruzan 2 monjes | 3 monjes, 1 caníbal |
+| 8 |  3 caníbales | Regresa 1 caníbal | 3 monjes |
+| 9 | 1 caníbal | Cruzan 2 caníbales | 3 monjes, 2 caníbales |
+| 10 |  2 caníbales | Regresa 1 caníbal | 3 monjes, 1 caníbal |
+| 11 |   | Cruzan 2 caníbales | 3 monjes, 3 caníbales |
+
+La solución correcta requiere **11 movimientos**.
+
+
+
+
