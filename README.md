@@ -81,6 +81,51 @@ flowchart TD
 
 La solución correcta requiere **11 movimientos**.
 
+----
+
+# EDA ( Exploracion de analisis de datos)
+
+### Una red neuronal que me diga si un alumno va pasar (si o no)
+
+Puede depender de muchos factores ( entradas) como asistencia, promedio de tareas, calificacion de examenes y participacion
+
+| asistencia | promedio de tareas | promedio de exames | participacion | traget |
+|------------|--------------------|--------------------|---------------|--------|
+|	75		 |        80          |        75          |      50       |   1    |
 
 
+### Identificacion de personas 
 
+Se puede identificar de muchas formas, como el tamaño de la persona por pixel, si se esta moviendo, si tiene brazos, manos, cabeza , cuerpo
+
+| tamaño por pixel | moviedo | cuerpo | traget |
+|------------------|---------|--------|--------|
+|         70       |     1   |    1   |    1   |
+|         40       |     0   |    0   |    0   |
+|         60       |     0   |    1   |    0   |
+
+
+---
+# RECONOCIMIENTO DE ROSTROS OPENCV
+
+ - [EjemploCV2](ejemplocv2.py)
+
+ - [Ejemplo_2_CV2](ejemplo2cv2.py)
+
+ --- 
+
+ # HAARCASCADE 
+  Reconoce una cara de manera frontal
+
+ - [Ejemplo_Haarcascacode](ejemplohaarcascacodes.py)
+
+ ---
+
+ # EIGENFACE 
+
+ Para usaremos el algoritmo haarcascacode para reconocer caras  y dejarlas en una carpeta con su nombre de esa persona
+
+ Despues se usara el siguiente codigo para entrenarlo
+  - [Entrenar_Eigenfaces](entrenarEigenfaces.py)
+
+  
